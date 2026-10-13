@@ -17,7 +17,6 @@ VerificaLab: a recusa é o comportamento seguro esperado.
 | ddoslayer | A execução disponível é interativa e requer privilégios de root; o adapter não inicia a interface sem controle dos parâmetros. | `PermissionError: ddoslayer requer privilégios de root` |
 | overload | A execução disponível é interativa e requer privilégios de root; o projeto também está arquivado. | `PermissionError: overload requer privilégios de root` |
 | ufonet | Catalogado somente para análise estática; tráfego, amplificação e recursos distribuídos estão desabilitados. | `AdapterExecutionError: UFONet está catalogado para análise estática; execução de tráfego está desabilitada` |
-| pyddos | A interface interativa não permite ao adapter garantir a porta e os limites solicitados; a recusa observada foi por necessidade de root. | `PermissionError: pyddos requer privilégios de root` |
 
 Fonte: `docs/HOMOLOGACAO_FINAL.md`, parte D; motivos complementares:
 `docs/SPRINTS.md`, Sprint 6.
@@ -88,3 +87,15 @@ Fonte: `docs/HOMOLOGACAO_FINAL.md`, parte D; motivos complementares:
 
 - Branch homologada: `master`.
 - HEAD no momento da consolidação documental: `96209bb1e284f0fd017b2df2aac3a280c1b7e683`.
+
+### 1.2 Ferramentas funcionais (atualizado v0.2.2)
+
+| Ferramenta | Camada | Modo |
+|---|---|---|
+| slowloris | L7 | conexões incompletas |
+| mikumikubeam | L7 | HTTP flood em Go |
+| pyddos | L7 | HTTP flood com rotação de User-Agent |
+
+O pyddos foi habilitado em v0.2.2 após correção do `buffer()`,
+instalação de dependências no venv, correção de cwd e suporte a
+porta no modo `-Request`. Ver commit `eaae25e`.
