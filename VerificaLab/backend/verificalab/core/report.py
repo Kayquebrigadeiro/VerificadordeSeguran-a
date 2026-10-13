@@ -60,8 +60,9 @@ def to_markdown(summary) -> Path:
     ]
     for execution in executions:
         name = str(execution.get("tool_name") or execution.get("tool_id") or "desconhecida")
+        safe_name = name.replace("|", "\\|").replace("\\n", " ")
         rows.append(
-            f"| {name.replace('|', '\\|').replace('\\n', ' ')} "
+            f"| {safe_name} "
             f"| {'OK' if execution.get('ok') else 'Falha'} "
             f"| {execution.get('returncode', '—')} "
             f"| {execution.get('total_duration', 0)} |"
