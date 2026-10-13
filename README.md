@@ -3,12 +3,12 @@
 > Plataforma local para testes controlados de segurança. Verificações
 > de contrato HTTP, testes de stress autorizados e relatórios
 > reproduzíveis — com **gate de autorização obrigatório**, **kill-tree
-> em subprocessos** e suíte de **257 testes**.
+> em subprocessos** e suíte de **218 testes**.
 
 [![CI](https://github.com/Kayquebrigadeiro/VerificadordeSeguran-a/actions/workflows/ci.yml/badge.svg)](https://github.com/Kayquebrigadeiro/VerificadordeSeguran-a/actions)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-257%20passing-brightgreen)]()
+[![Tests](https://img.shields.io/badge/tests-218%20passing-brightgreen)]()
 
 ## Por que este projeto existe
 
@@ -46,8 +46,9 @@ O VerificaLab foi construído ao redor de três princípios:
 ### Suíte de testes
 
 ```
+$ make test
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-218 passed, 3 skipped, 1 warning in 40.30s
+218 passed, 3 skipped, 1 warning in 84.23s (0:01:24)
 ```
 
 ### Relatório HTML gerado
@@ -154,7 +155,7 @@ make help    # Lista targets disponíveis
 │   ├── executors/              ← httpchecks · loadgen · suite
 │   ├── api/                    ← FastAPI
 │   └── tui/                    ← Textual
-├── backend/tests/              ← 257 testes
+├── backend/tests/              ← 218 testes
 ├── frontend/                   ← React + TypeScript + Vite
 ├── tools/                      ← 3 ferramentas de referência
 ├── docs/

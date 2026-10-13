@@ -1,19 +1,18 @@
 # Metadata do GitHub — configurar manualmente
 
-Sem `gh` CLI, os campos abaixo precisam ser preenchidos no browser.
+Sem `gh` CLI, os campos precisam ser preenchidos no browser.
 
-## URL
-
+## URL de configuração
 https://github.com/Kayquebrigadeiro/VerificadordeSeguran-a
 
-## Description (curta — aparece no topo)
+Clique no ícone de engrenagem ao lado de "About" (canto direito).
 
+## Description
 Plataforma local de testes de segurança autorizados. Gate de
 autorização obrigatório, kill-tree em subprocessos, relatórios
-JSON/MD/HTML, 218 testes aprovados.
+JSON/MD/HTML, 218 testes.
 
-## Topics (adicionar todos)
-
+## Topics (adicionar todos, um por um)
 python
 security
 testing
@@ -29,14 +28,8 @@ authorized-testing
 security-platform
 
 ## Website
-
-Deixe vazio, ou aponte para uma demo se existir.
+Deixe vazio.
 
 ## Social preview (opcional)
-
-Imagem 1280x640 com:
-
-- Título: "VerificaLab"
-- Subtítulo: "Authorized security testing platform"
-- Screenshot da TUI ou relatório
-- Use https://opengraph.io/ para gerar
+Imagem 1280x640 com título "VerificaLab" e subtítulo
+"Authorized security testing platform".
