@@ -41,6 +41,23 @@ O VerificaLab foi construído ao redor de três princípios:
 - **Cancelamento via API** com encerramento de árvore de processos
 - **TUI** com painel de ferramentas e descrição de uso
 
+## Screenshots
+
+### Suíte de testes
+
+```
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+218 passed, 3 skipped, 1 warning in 40.30s
+```
+
+### Relatório HTML gerado
+
+![Relatório HTML do VerificaLab](docs/screenshots/report.png)
+
+### Painel de ferramentas (TUI)
+
+![TUI do VerificaLab](docs/screenshots/tui.png)
+
 ## O que **não** faz
 
 - Não executa nada contra alvos externos sem autorização assinada
