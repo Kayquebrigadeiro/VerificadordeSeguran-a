@@ -1,6 +1,6 @@
 - id: mikumikubeam
   name: MikuMikuBeam
-  path: mikumikubeam/cmd/mmb-cli
+  path: tools/mikumikubeam/cmd/mmb-cli
   language: go
   layer: L7
   requires_root: false
@@ -44,7 +44,7 @@
 
 - id: slowloris
   name: Slowloris
-  path: slowloris/slowloris.py
+  path: tools/slowloris/slowloris.py
   language: python
   layer: L7
   requires_root: false
@@ -112,7 +112,7 @@
 
 - id: pyddos
   name: PyDDoS
-  path: pyddos/pyddos.py
+  path: tools/pyddos/pyddos.py
   language: python
   layer: L4+L7
   requires_root: false

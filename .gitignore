@@ -21,3 +21,15 @@ data/
 *.tar.gz
 *.bak
 .DS_Store
+
+# Ferramentas não-adaptadas (mantidas localmente, fora do repo público)
+ddoslayer/
+overload/
+mhddos/
+impulse/
+ufonet/
+
+# Documentos internos de desenvolvimento (não são material público)
+resultadodossprints.md
+USO_RAPIDO.md
+VerificaLab_Plano_e_Prompt.md

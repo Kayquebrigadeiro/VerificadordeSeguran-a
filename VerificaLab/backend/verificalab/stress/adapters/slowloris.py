@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import sys
-from pathlib import Path
 from urllib.parse import urlsplit
 
 from verificalab import config
@@ -91,9 +90,7 @@ class SlowlorisAdapter(StressAdapter):
         ):
             raise ValueError("extra_args contém opções não permitidas")
 
-        script_path = (
-            config.BASE_DIR.parent / "slowloris" / "slowloris.py"
-        ).resolve(strict=True)
+        script_path = self._tool_path()
         return [
             sys.executable,
             str(script_path),
