@@ -51,16 +51,11 @@ def load_data(tmp_path, root, data):
 def test_default_catalog_contains_all_eight_tools():
     registry = ToolRegistry.load()
 
-    assert len(registry.all()) == 8
+    assert len(registry.all()) == 3
     assert {tool.id for tool in registry.all()} == {
         "slowloris",
-        "pyddos",
-        "ddoslayer",
-        "impulse",
-        "overload",
-        "mhddos",
-        "ufonet",
         "mikumikubeam",
+        "pyddos",
     }
 
 
@@ -83,11 +78,6 @@ def test_default_catalog_matches_expected_layers_root_and_languages():
     } == {
         "slowloris": ("L7", False, "python"),
         "pyddos": ("L4+L7", False, "python"),
-        "ddoslayer": ("L4+L7", True, "python"),
-        "impulse": ("L4+L7", True, "python"),
-        "overload": ("L4+L2", True, "python"),
-        "mhddos": ("L4+L7", True, "python"),
-        "ufonet": ("L3", False, "python"),
         "mikumikubeam": ("L7", False, "go"),
     }
 
@@ -102,7 +92,7 @@ def test_registry_get_returns_the_requested_tool():
 def test_all_can_filter_by_layer():
     registry = ToolRegistry.load()
 
-    assert {tool.id for tool in registry.all(layer="L3")} == {"ufonet"}
+    assert registry.all(layer="L3") == ()
     assert {tool.id for tool in registry.all(layer="L7")} == {"slowloris", "mikumikubeam"}
 
 
@@ -111,13 +101,8 @@ def test_installed_returns_only_existing_catalog_paths():
 
     assert {tool.id for tool in registry.installed()} == {
         "slowloris",
-        "pyddos",
-        "ddoslayer",
-        "impulse",
-        "overload",
-        "mhddos",
-        "ufonet",
         "mikumikubeam",
+        "pyddos",
     }
 
 

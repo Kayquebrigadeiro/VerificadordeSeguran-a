@@ -19,16 +19,12 @@ from verificalab.stress.registry import ToolRegistry
 from tests.fixtures.local_http import local_http
 
 TOOL_IDS = (
-    "ddoslayer",
-    "mhddos",
-    "impulse",
-    "overload",
-    "pyddos",
-    "ufonet",
-    "mikumikubeam",
     "slowloris",
+    "mikumikubeam",
+    "pyddos",
 )
-FAIL_CLOSED_IDS = {"ddoslayer", "overload", "ufonet"}
+FAIL_CLOSED_IDS = set()
+REQUIRES_ROOT_IDS = set()
 
 
 def adapter_for(tool_id: str) -> StressAdapter:
@@ -221,18 +217,13 @@ def test_mikumikubeam_executes_against_local_lab(local_http):
 def test_all_catalog_adapters_instantiate():
     registry = ToolRegistry.load()
 
-    assert len(registry.all()) == 8
+    assert len(registry.all()) == 3
     for tool in registry.all():
         adapter = registry.adapter_for(tool.id)
         module_name, class_name = {
             "slowloris": ("slowloris", "SlowlorisAdapter"),
-            "ddoslayer": ("ddoslayer", "DDoSlayerAdapter"),
-            "mhddos": ("mhddos", "MHDDOSAdapter"),
-            "impulse": ("impulse", "ImpulseAdapter"),
-            "overload": ("overload", "OverloadAdapter"),
-            "pyddos": ("pyddos", "PyDDoSAdapter"),
-            "ufonet": ("ufonet", "UFONetAdapter"),
             "mikumikubeam": ("mikumikubeam", "MikuMikuBeamAdapter"),
+            "pyddos": ("pyddos", "PyDDoSAdapter"),
         }[tool.id]
         expected_type = getattr(
             import_module(f"verificalab.stress.adapters.{module_name}"), class_name

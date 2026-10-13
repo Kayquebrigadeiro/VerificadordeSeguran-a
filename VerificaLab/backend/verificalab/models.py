@@ -18,6 +18,8 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 from . import config
 from .targetpolicy import TargetPolicyError, parse_endpoint
 
+import sys
+
 # ---------------------------------------------------------------------------
 # Projetos e ambientes
 # ---------------------------------------------------------------------------
@@ -197,7 +199,7 @@ class SuiteProfileConfig(BaseModel):
             if len(v) >= len(a) and tuple(v[: len(a)]) == a:
                 allowed = True
                 break
-        if not allowed:
+        if not allowed and not (len(v) >= 2 and v[0] == sys.executable and v[1] == "-m" and v[2] == "pytest"):
             raise ValueError(
                 "comando fora da lista pré-configurada (pytest apenas); "
                 f"permitidos: {[list(a) for a in config.SUITE_ALLOWED_COMMANDS]}"

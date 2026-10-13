@@ -20,27 +20,6 @@
     rate_limit: low
 
 
-- id: ddoslayer
-  name: DDoSlayer
-  path: ddoslayer/DDoSlayer.py
-  language: python
-  layer: L4+L7
-  requires_root: true
-  description: >
-    Framework interativo com métodos HTTP, conexões lentas e opções de camada
-    de rede que usam pacotes raw.
-    Exige revisão do método escolhido antes de qualquer teste.
-  when_to_use: >
-    Apenas para testes autorizados e isolados no laboratório local, escolhendo
-    HTTP e mantendo duração e threads nos limites abaixo.
-  example: "python3 ddoslayer/DDoSlayer.py"
-  risks:
-    - "Métodos SYN e UDP podem exigir privilégios elevados e afetar redes."
-    - "A interface interativa não aplica os limites do VerificaLab."
-  default_limits:
-    duration_s: 5
-    threads: 1
-    rate_limit: low
 
 - id: slowloris
   name: Slowloris
@@ -66,49 +45,7 @@
     duration_s: 30
     threads: 50
 
-- id: mhddos
-  name: MHDDoS
-  path: mhddos/start.py
-  language: python
-  layer: L4+L7
-  requires_root: true
-  description: >
-    Toolkit com numerosos métodos HTTP e de rede, inclusive opções com proxies
-    e métodos que podem exigir acesso a pacotes raw.
-    A ampla superfície de métodos requer seleção restrita e revisão prévia.
-  when_to_use: >
-    Apenas em laboratório local autorizado, usando um método HTTP simples sem
-    proxies, com uma thread e duração curta.
-  example: "python3 mhddos/start.py GET http://127.0.0.1:8477 1 0 0 1 1"
-  risks:
-    - "Métodos e proxies podem gerar tráfego para terceiros ou tráfego excessivo."
-    - "A execução upstream não impõe os limites globais do VerificaLab."
-  default_limits:
-    duration_s: 5
-    threads: 1
-    rate_limit: low
 
-- id: impulse
-  name: Impulse
-  path: impulse/impulse.py
-  language: python
-  layer: L4+L7
-  requires_root: true
-  description: >
-    Toolkit com métodos HTTP, conexões lentas e métodos de rede que usam
-    pacotes raw, além de funcionalidades fora do escopo de testes web.
-    Os métodos disponíveis devem ser restritos antes de qualquer execução.
-  when_to_use: >
-    Somente para testar HTTP no laboratório local autorizado; não use funções
-    de amplificação, mensagens, SMS ou métodos de rede raw.
-  example: "python3 impulse/impulse.py --target http://127.0.0.1:8477 --method HTTP --time 1 --threads 1"
-  risks:
-    - "Métodos raw podem exigir root e afetar sistemas além do alvo pretendido."
-    - "Funções de SMS/e-mail podem contatar pessoas ou serviços externos."
-  default_limits:
-    duration_s: 5
-    threads: 1
-    rate_limit: low
 
 - id: pyddos
   name: PyDDoS
@@ -134,46 +71,4 @@
     duration_s: 10
     threads: 20
 
-- id: overload
-  name: Overload
-  path: overload/overload.py
-  language: python
-  layer: L4+L2
-  requires_root: true
-  description: >
-    Toolkit interativo com opções HTTP, conexões lentas e métodos de rede local
-    ou de camada 4 que podem exigir privilégios elevados.
-    O projeto está arquivado e requer revisão adicional antes do uso.
-  when_to_use: >
-    Apenas para testes HTTP em laboratório local autorizado; não selecione
-    proxy, spoofing ARP, desconexão de dispositivos ou SYN.
-  example: "python3 overload/overload.py"
-  risks:
-    - "Métodos de camada 2 podem interromper conectividade de outros dispositivos."
-    - "O projeto está arquivado e a interface interativa não aplica limites."
-  default_limits:
-    duration_s: 5
-    threads: 1
-    rate_limit: low
 
-- id: ufonet
-  name: UFONet
-  path: ufonet/ufonet
-  language: python
-  layer: L3
-  requires_root: false
-  description: >
-    Toolkit com recursos de requisições distribuídas via redirecionadores e
-    amplificação de protocolos, além de uma rede P2P.
-    Não é adequado para execução pelo VerificaLab.
-  when_to_use: >
-    Apenas para leitura e avaliação estática; não execute busca de vetores,
-    amplificação, rede P2P nem tráfego contra alvos.
-  example: "python3 ufonet/ufonet --help"
-  risks:
-    - "Pode envolver serviços terceiros como amplificadores ou redirecionadores."
-    - "Não há execução segura garantida pelos limites locais do VerificaLab."
-  default_limits:
-    duration_s: 5
-    threads: 1
-    rate_limit: low

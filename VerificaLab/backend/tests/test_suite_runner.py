@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import sys
 import threading
 import time
 
@@ -47,7 +48,7 @@ def _procs(cmdline_fragment: str) -> list[int]:
 def test_suite_quick_runs_real_pytest(tmp_path):
     demo = ensure_demo_suite()
     ctx = CtxStub({
-        "command": ["python3", "-m", "pytest", "-q", "test_demo.py"],
+        "command": [sys.executable, "-m", "pytest", "-q", "test_demo.py"],
         "cwd": str(demo), "timeout_s": 90,
     }, tmp_path)
     result = run_suite(ctx)
@@ -68,7 +69,7 @@ def test_suite_cancel_kills_process_tree(tmp_path):
     """Cancelamento deve encerrar pytest E o filho sleep 300."""
     demo = ensure_demo_suite()
     ctx = CtxStub({
-        "command": ["python3", "-m", "pytest", "-q", "test_slow.py"],
+        "command": [sys.executable, "-m", "pytest", "-q", "test_slow.py"],
         "cwd": str(demo), "timeout_s": 120,
     }, tmp_path)
     before = set(_procs("sleep 300"))
@@ -102,7 +103,7 @@ def test_suite_without_junit_is_not_approved(tmp_path):
     import subprocess  # noqa: F401  (documenta intenção)
     demo = ensure_demo_suite()
     # comando que sai com 0 mas não gera JUnit: pytest com addopts removido
-    cfg = {"command": ["python3", "-m", "pytest", "-q", "--no-header",
+    cfg = {"command": [sys.executable, "-m", "pytest", "-q", "--no-header",
                        "-p", "no:cacheprovider", "test_demo.py"],
            "cwd": str(demo), "timeout_s": 90}
     # o runner SEMPRE adiciona --junitxml; caso coberto é junit ausente por

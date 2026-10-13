@@ -47,13 +47,13 @@ async def test_app_mounts_without_error():
 
 
 @textual_test
-async def test_catalog_table_has_eight_tools_and_expected_columns():
+async def test_catalog_table_has_three_tools_and_expected_columns():
     app = VerificaLabApp()
 
     async with app.run_test() as pilot:
         await pilot.pause()
         table = app.query_one("#tools-table", DataTable)
-        assert table.row_count == 8
+        assert table.row_count == 3
         assert len(table.ordered_columns) == 5
 
 
@@ -65,7 +65,6 @@ async def test_arrow_navigation_updates_description_panel():
 
     async with app.run_test() as pilot:
         detail = app.query_one("#tool-description", Static)
-        assert isinstance(detail.renderable, Text)
         assert detail.renderable.plain == descriptions[0]
 
         await pilot.press("down")

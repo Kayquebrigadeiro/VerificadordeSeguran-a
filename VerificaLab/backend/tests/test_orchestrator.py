@@ -89,9 +89,12 @@ def test_plan_rejects_overrides_outside_catalog_limits(harness, overrides, messa
 
 
 def test_plan_with_three_registered_tools_has_three_entries(harness):
-    app, _, _ = harness
-    plan = app.plan("127.0.0.1:8477", ["slowloris", "impulse", "ddoslayer"])
-    assert [entry.tool_id for entry in plan.tools] == ["slowloris", "impulse", "ddoslayer"]
+    app, adapters, _ = harness
+    adapters["slowloris"] = FakeAdapter(_result())
+    adapters["mikumikubeam"] = FakeAdapter(_result())
+    adapters["pyddos"] = FakeAdapter(_result())
+    plan = app.plan("127.0.0.1:8477", ["slowloris", "mikumikubeam", "pyddos"])
+    assert [entry.tool_id for entry in plan.tools] == ["slowloris", "mikumikubeam", "pyddos"]
 
 
 def test_plan_rejects_an_unregistered_tool(harness):
@@ -149,12 +152,12 @@ def test_invalid_authorization_aborts_before_adapter_or_database_run(harness):
 def test_failing_adapter_does_not_prevent_later_tools(harness):
     app, adapters, db = harness
     adapters["slowloris"] = FakeAdapter(error=RuntimeError("adapter failed"))
-    adapters["impulse"] = FakeAdapter(_result())
-    plan = app.plan("127.0.0.1:8477", ["slowloris", "impulse"])
+    adapters["mikumikubeam"] = FakeAdapter(_result())
+    plan = app.plan("127.0.0.1:8477", ["slowloris", "mikumikubeam"])
     summary = app.run(plan)
     assert summary.ok is False
     assert [item.ok for item in summary.executions] == [False, True]
-    assert len(adapters["impulse"].requests) == 1
+    assert len(adapters["mikumikubeam"].requests) == 1
     assert db.one("SELECT COUNT(*) AS n FROM runs")["n"] == 2
 
 
