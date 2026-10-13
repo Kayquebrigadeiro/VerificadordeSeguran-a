@@ -1,7 +1,8 @@
 .PHONY: help bootstrap test serve tui migrate demo clean
 
-PYTHON := .venv/bin/python
-VERIFICALAB := .venv/bin/verificalab
+VENV    := VerificaLab/.venv
+PYTHON  := $(VENV)/bin/python
+VLAB    := $(VENV)/bin/verificalab
 
 help: ## Lista os targets disponíveis
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-12s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -10,26 +11,26 @@ bootstrap: ## Cria o ambiente, instala dependências e valida o projeto
 	@./bootstrap.sh
 
 test: ## Executa a suíte de testes
-	@cd VerificaLab && ../$(PYTHON) -m pytest backend/tests -o addopts='' -ra
+	@$(PYTHON) -m pytest VerificaLab/backend/tests -o addopts='' -ra
 
 serve: ## Inicia API e laboratório em loopback
-	@cd VerificaLab && ../$(VERIFICALAB) serve
+	@$(VLAB) serve
 
 tui: ## Abre o painel interativo
-	@cd VerificaLab && ../$(VERIFICALAB) tui
+	@$(VLAB) tui
 
 migrate: ## Aplica migrações e semeia o catálogo
-	@cd VerificaLab && ../$(VERIFICALAB) migrate
+	@$(VLAB) migrate
 
 demo: ## Cria projeto e perfis de demonstração
-	@cd VerificaLab && ../$(VERIFICALAB) demo
+	@$(VLAB) demo
 
 clean: ## Remove .venv, caches Python e frontend/node_modules
-	@if [ -d .venv ]; then \
-		printf 'Remover .venv/? [y/N] '; \
+	@if [ -d $(VENV) ]; then \
+		printf 'Remover %s/? [y/N] ' '$(VENV)'; \
 		read answer; \
 		case "$$answer" in \
-			y|Y|yes|YES) rm -rf -- .venv ;; \
+			y|Y|yes|YES) rm -rf -- $(VENV) ;; \
 			*) echo 'Cancelado.'; exit 0 ;; \
 		esac; \
 	fi
