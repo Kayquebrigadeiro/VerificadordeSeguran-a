@@ -33,3 +33,13 @@ Alvos externos exigem authorization.json assinado.
 - /tmp/VerificadordeSeguranca-backup-20261012-2045.tar.gz
 - Não há remote. Para cópia off-machine, salve este tarball em HD
   externo ou serviço de sua escolha.
+
+## Ferramentas funcionais (v0.2.2)
+
+- slowloris      — conexões HTTP incompletas (L7)
+- mikumikubeam   — HTTP flood em Go (L7)
+- pyddos         — HTTP flood com rotação de UA (L7)
+
+Fail-closed (não executam): ddoslayer, overload
+Requires root (não executam sem privilégio): mhddos, impulse
+Não adaptável: ufonet
