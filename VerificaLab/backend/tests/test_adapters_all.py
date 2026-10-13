@@ -28,7 +28,7 @@ TOOL_IDS = (
     "mikumikubeam",
     "slowloris",
 )
-FAIL_CLOSED_IDS = {"ddoslayer", "overload", "pyddos", "ufonet"}
+FAIL_CLOSED_IDS = {"ddoslayer", "overload", "ufonet"}
 
 
 def adapter_for(tool_id: str) -> StressAdapter:

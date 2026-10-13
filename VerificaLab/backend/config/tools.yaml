@@ -115,7 +115,7 @@
   path: pyddos/pyddos.py
   language: python
   layer: L4+L7
-  requires_root: true
+  requires_root: false
   description: >
     Script interativo com métodos HTTP, conexões lentas e SYN via sockets raw.
     A instalação e alguns métodos podem solicitar privilégios elevados.
@@ -130,6 +130,9 @@
     duration_s: 5
     threads: 1
     rate_limit: low
+  max_limits:
+    duration_s: 10
+    threads: 20
 
 - id: overload
   name: Overload

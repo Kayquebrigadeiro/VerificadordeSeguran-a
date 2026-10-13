@@ -82,7 +82,7 @@ def test_default_catalog_matches_expected_layers_root_and_languages():
         for tool in registry.all()
     } == {
         "slowloris": ("L7", False, "python"),
-        "pyddos": ("L4+L7", True, "python"),
+        "pyddos": ("L4+L7", False, "python"),
         "ddoslayer": ("L4+L7", True, "python"),
         "impulse": ("L4+L7", True, "python"),
         "overload": ("L4+L2", True, "python"),

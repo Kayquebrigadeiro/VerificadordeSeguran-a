@@ -143,12 +143,13 @@ class StressAdapter(ABC):
         req: StressRequest,
         *,
         startup_grace_s: int = 5,
+        cwd: Path | None = None,
     ) -> RunResult:
         from verificalab.core.runner import run_subprocess
 
         return run_subprocess(
             command,
-            cwd=config.BACKEND_DIR,
+            cwd=config.BACKEND_DIR if cwd is None else cwd,
             timeout_s=req.duration_s + startup_grace_s,
         )
 

